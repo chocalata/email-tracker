@@ -1,0 +1,23 @@
+{
+	"name": "email-tracker",
+	"version": "1.0.0",
+	"main": "app.js",
+	"scripts": {
+		"start": "node app.js",
+		"dev": "nodemon --env-file=../.env --ignore ./node_modules/ --legacy-watch app.js -e ejs,css,js"
+	},
+	"author": "Catalin Trandafir",
+	"license": "ISC",
+	"description": "",
+	"dependencies": {
+		"ejs": "^3.1.10",
+		"express": "^5.1.0",
+		"helmet": "^8.1.0"
+	},
+	"devDependencies": {
+		"nodemon": "^3.1.9"
+	},
+	"engines": {
+		"node": ">=20.0.0"
+	}
+}

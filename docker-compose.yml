@@ -1,0 +1,19 @@
+services:
+  email-tracker.catalin-trandafir.com:
+    build:
+      context: "./email-tracker"
+      dockerfile: "Dockerfile"
+    ports:
+      - 3000:3000
+    environment:
+      - NODE_ENV=development
+      - PORT=3000
+      - TZ='Europe/Madrid'
+    env_file:
+      - ./email-tracker/.env
+  redis:
+    image: redis:7.4-alpine
+    ports:
+      - 6379:6379
+    volumes:
+      - redis-data:/data
