@@ -1,20 +1,19 @@
 const path = require('path')
 
+const trackingService = require('../service/tracking-service')
+
 const IMAGE_PATH = path.join(__dirname, '..', 'tracking-image.png')
 
 module.exports = function routes() {
   const router = require('express').Router()
 
-  router.use((req, res, next) => {
+  const trackingMiddleware = async (req, res, next) => {
     const tracking = req.query.tracking
 
     if (tracking === 'off') return res.sendFile(IMAGE_PATH)
 
-    next()
-  })
+    res.sendFile(IMAGE_PATH)
 
-  const checkTrackingId = (req, res, next) => {
-    // check if trackingId is present in the URL
     const trackingId = req.params.trackingId
 
     if (!trackingId) {
@@ -23,19 +22,43 @@ module.exports = function routes() {
         .send('Tracking ID is required (/tracking/image/:trackingId)')
     }
 
-    console.log('Tracking ID:', trackingId)
+    const trackingData = await trackingService.getTrackingData(trackingId)
 
-    next()
+    console.log('Tracking data:', trackingData)
+
+    if (
+      trackingData &&
+      trackingData.data.status === trackingService.TRACKING_STATUS.ON
+    ) {
+      req.trackingData = trackingData
+      next()
+    }
   }
 
-  router.get('/image{/:trackingId}', checkTrackingId, (req, res) => {
-    console.log(`Tracking ID: ${req.params.trackingId}`)
+  router.get('/image{/:trackingId}', trackingMiddleware, (req, res) => {
+    const trackingData = req.trackingData.data
+    const key = req.trackingData.key
 
-    const id = Math.floor(Math.random() * 1000)
+    const date = new Date()
 
-    console.log(id)
+    console.log('Tracking data:', trackingData)
 
-    res.sendFile(IMAGE_PATH)
+    trackingData.count++
+
+    if (trackingData.firstTime === '') trackingData.firstTime = date
+
+    trackingData.lastTime = date
+
+    trackingData.dates.push(date)
+
+    // save just the 10 most recent dates
+    if (trackingData.dates.length > 10) {
+      trackingData.dates.shift()
+    }
+
+    console.log('Tracking data after update:', trackingData)
+
+    trackingService.addTrackingData(key, trackingData)
   })
 
   return router

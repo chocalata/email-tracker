@@ -1,12 +1,23 @@
 const express = require('express')
 const helmet = require('helmet')
 const path = require('path')
+const cookieParser = require('cookie-parser')
 
 const app = express()
 
-app.use(helmet()) // Security middleware
+const PORT = process.env.PORT
 
-const PORT = process.env.PORT || 3000
+app.use(express.json())
+app.set('trust proxy', 1)
+
+app.use(helmet())
+
+app.use(
+  cookieParser(process.env.COOKIE_SECRET, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'PROD'
+  })
+)
 
 //CSS paths
 app.use('/css', express.static(__dirname + '/public/css'))
