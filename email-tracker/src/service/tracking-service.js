@@ -1,25 +1,14 @@
 const crypto = require('crypto')
 
-const redis = require('../repository/redis')
+const TRACKING_EXPIRATION_DAYS = process.env.TRACKING_EXPIRATION_DAYS || 3
 
-const TRACKING_EMAILS_LIMIT = process.env.TRACKING_EMAILS_LIMIT || 5
+const TRACKING_EXPIRATION_TIME = 60 * 60 * 24 * TRACKING_EXPIRATION_DAYS
+
+const redis = require('../repository/redis')
 
 const TRACKING_STATUS = {
   ON: 'on',
   OFF: 'off'
-}
-
-const checkUserTrackingLimit = async (userId) => {
-  console.log('Checking user tracking limit for user ID:', userId)
-
-  const keys = await redis.keys(`${userId}__*`)
-
-  if (keys.length > TRACKING_EMAILS_LIMIT) {
-    console.log('User has reached the tracking limit:', keys.length)
-    return false
-  }
-
-  return true
 }
 
 const getTrackingData = async (trackingId) => {
@@ -61,6 +50,13 @@ const initTrackingData = async (userId) => {
   // generate an uuid4 trackingId
   const trackingId = crypto.randomUUID()
 
+  const date = new Date()
+
+  const createdAt = date.toISOString()
+  const expiresAt = new Date(
+    date.getTime() + TRACKING_EXPIRATION_TIME * 1000
+  ).toISOString()
+
   console.log(
     'Initializing tracking data for ID:',
     trackingId,
@@ -73,10 +69,14 @@ const initTrackingData = async (userId) => {
   await redis.hSet(redisKey, {
     status: TRACKING_STATUS.OFF,
     count: 0,
+    createdAt: createdAt,
+    expiresAt: expiresAt,
     firstTime: '',
     lastTime: '',
     dates: []
   })
+
+  await redis.expire(redisKey, TRACKING_EXPIRATION_TIME)
 
   return trackingId
 }
@@ -85,6 +85,5 @@ module.exports = {
   getTrackingData,
   initTrackingData,
   addTrackingData,
-  checkUserTrackingLimit,
   TRACKING_STATUS
 }

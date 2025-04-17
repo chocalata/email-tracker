@@ -1,7 +1,5 @@
 const redis = require('redis')
 
-TRACKING_EXPIRATION_DAYS = process.env.TRACKING_EXPIRATION_DAYS || 3
-
 const client = redis.createClient({
   url: process.env.REDIS_URL
 })
@@ -21,9 +19,6 @@ const keys = async (pattern) => {
 }
 
 const hSet = async (key, fields = {}) => {
-  // Expiration time (3 days in seconds)
-  const expirationTime = 60 * 60 * 24 * TRACKING_EXPIRATION_DAYS
-
   //transform fields to string
   for (const field in fields) {
     if (typeof fields[field] === 'object') {
@@ -32,7 +27,6 @@ const hSet = async (key, fields = {}) => {
   }
 
   await client.hSet(key, fields)
-  await client.expire(key, expirationTime)
 }
 
 const hGetAll = async (key) => {
@@ -41,4 +35,12 @@ const hGetAll = async (key) => {
   return value
 }
 
-module.exports = { hSet, hGetAll, keys }
+const del = async (key) => {
+  await client.del(key)
+}
+
+const expire = async (key, expirationTime) => {
+  await client.expire(key, expirationTime)
+}
+
+module.exports = { hSet, hGetAll, keys, del, expire }

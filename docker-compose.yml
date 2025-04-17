@@ -4,11 +4,9 @@ services:
       context: "./email-tracker"
     ports:
       - 3000:3000
-    environment:
-      - NODE_ENV=DEV
-      - PORT=3000
     env_file:
       - ./email-tracker/.env
+      - ./email-tracker/secret.env
     networks:
       - email-tracker-network
     volumes:
@@ -24,6 +22,7 @@ services:
       - email-tracker-network
     volumes:
       - redis-data:/data
+    mem_limit: 150m
 networks:
   email-tracker-network:
 volumes:

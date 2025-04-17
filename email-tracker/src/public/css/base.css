@@ -1,0 +1,29 @@
+:root {
+	--primary-color: #3b82f6;
+	--primary-hover: #2563eb;
+
+	--secondary-color: #334155;
+	--secondary-hover: #1e293b;
+
+	--accent-color: #f87171;
+	--accent-hover: #ef4444;
+
+	--highlight-color: #34d399;
+	--highlight-hover: #10b981;
+
+	--dark-gray: #94a3b8;
+	--light-gray: #f1f5f9;
+}
+
+body {
+	background-color: var(--light-gray);
+	color: var(--secondary-color);
+	line-height: 1.6;
+	padding: 20px;
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}

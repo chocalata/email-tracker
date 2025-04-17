@@ -1,3 +1,4 @@
+const userService = require('../service/user-service')
 const trackingService = require('../service/tracking-service')
 
 module.exports = function routes() {
@@ -22,7 +23,7 @@ module.exports = function routes() {
       return res.status(400).send('User ID is required')
     }
 
-    const limitReached = await trackingService.checkUserTrackingLimit(userId)
+    const limitReached = await userService.checkUserTrackingLimit(userId)
 
     if (!limitReached) {
       console.log('User has reached the tracking limit')
@@ -33,7 +34,7 @@ module.exports = function routes() {
   }
 
   router.post(
-    '/image/create',
+    '/tracker/create',
     userIdentificationMiddleware,
     checkTrackingLimit,
     async (req, res) => {
@@ -42,6 +43,60 @@ module.exports = function routes() {
       const trackingId = await trackingService.initTrackingData(userId)
 
       res.status(200).send({ trackingId: trackingId })
+    }
+  )
+
+  router.post(
+    '/tracker/start',
+    userIdentificationMiddleware,
+    async (req, res) => {
+      const userId = req.signedCookies.userId
+      const trackingId = req.body.trackingId
+
+      if (!trackingId) {
+        console.log('Tracking ID is required')
+        return res.status(400).send('Tracking ID is required')
+      }
+
+      const trackingData = await userService.startTracking(userId, trackingId)
+
+      res.status(200).send(trackingData)
+    }
+  )
+
+  router.post(
+    '/tracker/stop',
+    userIdentificationMiddleware,
+    async (req, res) => {
+      const userId = req.signedCookies.userId
+      const trackingId = req.body.trackingId
+
+      if (!trackingId) {
+        console.log('Tracking ID is required')
+        return res.status(400).send('Tracking ID is required')
+      }
+
+      const trackingData = await userService.stopTracking(userId, trackingId)
+
+      res.status(200).send(trackingData)
+    }
+  )
+
+  router.delete(
+    '/tracker/delete',
+    userIdentificationMiddleware,
+    async (req, res) => {
+      const userId = req.signedCookies.userId
+      const trackingId = req.body.trackingId
+
+      if (!trackingId) {
+        console.log('Tracking ID is required')
+        return res.status(400).send('Tracking ID is required')
+      }
+
+      const trackingData = await userService.deleteTracking(userId, trackingId)
+
+      res.status(200).send(trackingData)
     }
   )
 

@@ -11,12 +11,14 @@ module.exports = function routes() {
 
   const tracking = require('./tracking')()
   const web = require('./web/index')()
+  const userActions = require('./user-actions')()
 
   router.use('/', web)
 
   // Apply the rate limiting middleware to all requests.
   router.use(limiter)
 
+  router.use('/user-actions', userActions)
   router.use('/tracking', tracking)
 
   return router

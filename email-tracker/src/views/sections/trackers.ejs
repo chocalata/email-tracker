@@ -1,0 +1,51 @@
+<link rel="stylesheet" href="/css/sections/trackers.css" />
+
+<section class="trackers">
+	<h2>Trackers</h2>
+	<% trackingData?.forEach((tracker) => { %>
+	<article
+		class="tracker tracker-status-<%= tracker.data.status %>"
+		data-id="<%= tracker.trackingId %>"
+	>
+		<div class="tracker-info">
+			<p><strong>Tracker (<%= tracker.trackingId %>)</strong></p>
+			<p>
+				<b>Tracking period: </b> <%= tracker.data.createdAt %> -- <%=
+				tracker.data.expiresAt %>
+			</p>
+			<p><b>First opened:</b> <%= tracker.data.firstTime %></p>
+			<p><b>Last opened:</b> <%= tracker.data.lastTime %></p>
+			<p><b>Opened:</b> <%= tracker.data.count > 0 ? "YES" : "NO" %></p>
+		</div>
+		<div class="tracker-actions">
+			<% if (tracker.data.status === "off") { %>
+			<button
+				class="toggle-tracking start-btn"
+				data-is-tracking="false"
+				data-id="<%= tracker.trackingId %>"
+			>
+				Start tracking
+			</button>
+			<% } else { %>
+			<button
+				class="toggle-tracking stop-btn"
+				data-is-tracking="true"
+				data-id="<%= tracker.trackingId %>"
+			>
+				Stop tracking
+			</button>
+			<% } %>
+
+			<button class="delete-btn" data-id="<%= tracker.trackingId %>">
+				Delete
+			</button>
+			<button class="copy-btn" data-id="<%= tracker.trackingId %>">Copy</button>
+		</div>
+		<% tracker.data.dates.forEach((date) => { %>
+		<div class="tracker-date">
+			<p><%= date %></p>
+		</div>
+		<% }) %>
+	</article>
+	<% }) %>
+</section>
