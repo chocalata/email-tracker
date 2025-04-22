@@ -36,10 +36,12 @@
 			</button>
 			<% } %>
 
-			<button class="delete-btn" data-id="<%= tracker.trackingId %>">
-				Delete
+			<button class="icon-btn delete-btn" data-id="<%= tracker.trackingId %>">
+				<img src="/img/delete.webp" />Delete
 			</button>
-			<button class="copy-btn" data-id="<%= tracker.trackingId %>">Copy</button>
+			<button class="icon-btn copy-btn" data-id="<%= tracker.trackingId %>">
+				<img src="/img/copy.webp" />Copy
+			</button>
 		</div>
 		<% tracker.data.dates.forEach((date) => { %>
 		<div class="tracker-date">

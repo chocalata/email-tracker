@@ -10,8 +10,9 @@
 	</head>
 	<body>
 		<header>
+			<%- include('sections/theme-toggle') %>
 			<h1>Email Tracker</h1>
-			<form id="new-tracker" action="/trackers" method="POST">
+			<!--form id="new-tracker" action="/trackers" method="POST">
 				<input
 					type="text"
 					name="tracker-name"
@@ -21,7 +22,7 @@
 				/>
 
 				<button id="new-tracker-btn" type="submit">Create</button>
-			</form>
+			</form-->
 			<button id="new-tracker-btn">Create new tracker</button>
 		</header>
 

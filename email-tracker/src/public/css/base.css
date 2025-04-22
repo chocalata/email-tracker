@@ -1,25 +1,56 @@
 :root {
-	--primary-color: #3b82f6;
-	--primary-hover: #2563eb;
+	--primary-color: #6c5ce7; /* Indigo Violet */
+	--primary-hover: #5b4cc1;
 
-	--secondary-color: #334155;
-	--secondary-hover: #1e293b;
+	--secondary-color: #3a5068; /* Deep Charcoal */
+	--secondary-hover: #1f2a36;
 
-	--accent-color: #f87171;
-	--accent-hover: #ef4444;
+	--accent-color: #ff7675; /* Coral Red */
+	--accent-hover: #e85c5b;
 
-	--highlight-color: #34d399;
-	--highlight-hover: #10b981;
+	--highlight-color: #00cec9; /* Aqua Green */
+	--highlight-hover: #00b5b3;
 
-	--dark-gray: #94a3b8;
-	--light-gray: #f1f5f9;
+	--darker-gray: #7f8fa6;
+	--dark-gray: #dfe6e9;
+	--light-gray: #f9fbfd;
+
+	--status-on: #55efc4;
+	--status-off: #fab1a0;
+
+	--background-color: var(--light-gray);
+	--text-color: #1a222c;
+	--text-muted: #636e72;
+}
+
+:root.dark {
+	--primary-color: #a29bfe; /* Light Lavender Indigo */
+	--primary-hover: #7e75dd;
+
+	--accent-color: #d36161; /* Coral Red */
+	--accent-hover: #a13f3f;
+
+	--highlight-color: #02aba9; /* Aqua Green */
+	--highlight-hover: #018482;
+
+	--darker-gray: #1e272e;
+	--dark-gray: #2d3436;
+	--light-gray: #636e72;
+
+	--status-on: #14532d;
+	--status-off: #842029;
+
+	--background-color: var(--darker-gray);
+	--text-color: #dfe6e9;
+	--text-muted: #b2bec3;
 }
 
 body {
-	background-color: var(--light-gray);
-	color: var(--secondary-color);
+	background-color: var(--background-color);
+	color: var(--text-color);
 	line-height: 1.6;
 	padding: 20px;
+	transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 * {

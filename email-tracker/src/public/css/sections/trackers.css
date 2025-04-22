@@ -10,14 +10,15 @@
 	padding: 15px;
 	margin-bottom: 20px;
 	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+	transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .tracker-status-on {
-	background-color: #95dfc6;
+	background-color: var(--status-on);
 }
 
 .tracker-status-off {
-	background-color: #f8d7da;
+	background-color: var(--status-off);
 }
 
 .tracker-info p {
@@ -47,6 +48,18 @@
 	color: #fff;
 }
 
+.icon-btn {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 6px;
+}
+
+.icon-btn img {
+	width: 16px;
+	height: 16px;
+}
+
 .start-btn {
 	background-color: var(--highlight-color);
 }
@@ -64,11 +77,11 @@
 }
 
 .delete-btn {
-	background-color: var(--dark-gray);
+	background-color: var(--secondary-color);
 }
 
 .delete-btn:hover {
-	background-color: rgb(121, 134, 142);
+	background-color: var(--secondary-hover);
 }
 
 .copy-btn {
