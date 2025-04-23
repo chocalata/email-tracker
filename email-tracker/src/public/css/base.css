@@ -61,3 +61,16 @@ body {
 	padding: 0;
 	box-sizing: border-box;
 }
+
+button {
+	flex: 1;
+	min-width: 100px;
+	padding: 8px;
+	border: none;
+	border-radius: 5px;
+	font-size: 0.9rem;
+	cursor: pointer;
+	transition: background-color 0.3s ease, transform 0.2s ease;
+	color: #fff;
+	background-color: var(--secondary-color);
+}
