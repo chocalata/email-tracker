@@ -100,5 +100,24 @@ module.exports = function routes() {
     }
   )
 
+  router.patch(
+    '/change-theme',
+    userIdentificationMiddleware,
+    async (req, res) => {
+      const userId = req.signedCookies.userId
+      const newTheme = req.body.theme
+
+      if (!newTheme) {
+        console.log('New theme is required')
+        return res.status(400).send('New theme is required')
+      }
+
+      res.cookie('userTheme', newTheme, { signed: false })
+      res.locals.userTheme = newTheme
+
+      res.status(200).send({ message: 'Theme changed successfully' })
+    }
+  )
+
   return router
 }

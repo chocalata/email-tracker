@@ -24,11 +24,6 @@ header h1 {
 	background-color: var(--primary-hover);
 }
 
-main {
-	max-width: 800px;
-	margin: 0 auto;
-}
-
 footer {
 	color: var(--primary-color);
 	text-align: center;

@@ -1,3 +1,10 @@
+#theme-toggle {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-bottom: 20px;
+}
+
 .checkbox {
 	opacity: 0;
 	position: absolute;
@@ -9,19 +16,11 @@
 	height: 26px;
 	border-radius: 50px;
 	position: relative;
-	padding: 5px;
 	cursor: pointer;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-}
-
-.fa-moon {
-	color: #f1c40f;
-}
-
-.fa-sun {
-	color: #f39c12;
+	justify-content: center;
 }
 
 .checkbox-label .ball {

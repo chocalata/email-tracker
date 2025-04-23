@@ -7,11 +7,19 @@ module.exports = function routes() {
 
   const userIdentificationMiddleware = (req, res, next) => {
     const userId = req.signedCookies.userId
+    let userTheme = req.cookies.userTheme
 
     if (!userId) {
       const newUserId = crypto.randomUUID()
       res.cookie('userId', newUserId, { signed: true })
     }
+
+    if (!userTheme) {
+      userTheme = 'dark'
+      res.cookie('userTheme', userTheme, { signed: false })
+    }
+
+    res.locals.userTheme = userTheme
 
     next()
   }

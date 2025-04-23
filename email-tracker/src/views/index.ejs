@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" class="<%= userTheme %>">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -10,8 +10,9 @@
 	</head>
 	<body>
 		<header>
-			<%- include('sections/theme-toggle') %>
 			<h1>Email Tracker</h1>
+			<%- include('sections/theme-toggle') %>
+
 			<!--form id="new-tracker" action="/trackers" method="POST">
 				<input
 					type="text"
@@ -24,6 +25,7 @@
 				<button id="new-tracker-btn" type="submit">Create</button>
 			</form-->
 			<button id="new-tracker-btn">Create new tracker</button>
+			<%- include('modals/tracker-transfer') %>
 		</header>
 
 		<main><%- include('sections/trackers') %></main>

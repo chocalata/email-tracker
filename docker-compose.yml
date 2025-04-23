@@ -15,6 +15,7 @@ services:
   email-tracker-redis:
     build:
       context: "./redis"
+      dockerfile: Dockerfile.local
     restart: always
     ports:
       - 6379:6379
