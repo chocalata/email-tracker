@@ -49,35 +49,19 @@
 }
 
 .start-btn {
-	background-color: var(--highlight-color);
+	background-color: var(--highlight-color) !important;
 }
 
 .start-btn:hover {
-	background-color: var(--highlight-hover);
+	background-color: var(--highlight-hover) !important;
 }
 
 .stop-btn {
-	background-color: var(--accent-color);
+	background-color: var(--accent-color) !important;
 }
 
 .stop-btn:hover {
-	background-color: var(--accent-hover);
-}
-
-.delete-btn {
-	background-color: var(--secondary-color);
-}
-
-.delete-btn:hover {
-	background-color: var(--secondary-hover);
-}
-
-.copy-btn {
-	background-color: var(--secondary-color);
-}
-
-.copy-btn:hover {
-	background-color: var(--secondary-hover);
+	background-color: var(--accent-hover) !important;
 }
 
 .tracker-date {

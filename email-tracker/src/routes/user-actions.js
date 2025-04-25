@@ -1,6 +1,8 @@
 const userService = require('../service/user-service')
 const trackingService = require('../service/tracking-service')
 
+const ONE_YEAR = 365 * 24 * 60 * 60 * 1000
+
 module.exports = function routes() {
   const router = require('express').Router()
 
@@ -112,7 +114,7 @@ module.exports = function routes() {
         return res.status(400).send('New theme is required')
       }
 
-      res.cookie('userTheme', newTheme, { signed: false })
+      res.cookie('userTheme', newTheme, { signed: false, maxAge: ONE_YEAR })
       res.locals.userTheme = newTheme
 
       res.status(200).send({ message: 'Theme changed successfully' })

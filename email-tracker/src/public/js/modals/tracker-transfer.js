@@ -2,6 +2,7 @@ const transferTrackerBtn = document.getElementById('transfer-tracker-btn')
 const trackerTransferModal = document.getElementById('tracker-transfer-modal')
 const exportTrackersBtn = document.getElementById('export-trackers')
 const importTrackersBtn = document.getElementById('import-trackers')
+const closeModalBtn = document.getElementById('close-tracker-transfer-modal')
 
 exportTrackersBtn.addEventListener('click', function () {
   const userId = document.cookie
@@ -12,6 +13,7 @@ exportTrackersBtn.addEventListener('click', function () {
     .writeText(userId)
     .then(() => {
       alert('Your user ID has been copied to your clipboard.')
+      trackerTransferModal.close()
     })
     .catch((err) => {
       console.error('Could not copy text: ', err)
@@ -39,6 +41,10 @@ importTrackersBtn.addEventListener('click', function () {
 // When the user clicks the button, open the modal
 transferTrackerBtn.onclick = function () {
   trackerTransferModal.showModal()
+}
+
+closeModalBtn.onclick = function () {
+  trackerTransferModal.close()
 }
 
 // When the user clicks anywhere outside of the modal, close it
