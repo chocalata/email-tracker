@@ -14,7 +14,7 @@ app.use(helmet())
 
 app.use(
   cookieParser(process.env.COOKIE_SECRET, {
-    httpOnly: true,
+    //httpOnly: true,
     secure: process.env.NODE_ENV === 'PROD'
   })
 )
