@@ -1,6 +1,7 @@
 const path = require('path')
 
 const trackingService = require('../service/tracking-service')
+const { getErrorMessage } = require('../utils/json-responses')
 
 const IMAGE_PATH = path.join(__dirname, '..', 'tracking-image.png')
 
@@ -11,7 +12,9 @@ const checkTracking = async (req, res, next) => {
   if (!trackingId) {
     return res
       .status(400)
-      .send('Tracking ID is required (/tracking/image/:trackingId)')
+      .send(
+        getErrorMessage('Tracking ID is required (/tracking/image/:trackingId)')
+      )
   }
 
   if (tracking === 'off') return res.sendFile(IMAGE_PATH)

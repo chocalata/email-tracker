@@ -6,7 +6,9 @@ const client = redis.createClient({
 
 client.connect()
 
-client.on('error', (err) => console.log('Redis Client Error', err))
+client.on('error', (err) => {
+  throw new Error(`Redis Client Error: ${err}`)
+})
 
 process.on('exit', () => {
   client.quit()

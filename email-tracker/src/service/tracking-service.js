@@ -12,12 +12,9 @@ const TRACKING_STATUS = {
 }
 
 const getTrackingData = async (trackingId) => {
-  console.log('Getting tracking data for ID:', trackingId)
-
   const keys = await redis.keys(`*__${trackingId}`)
 
   if (keys.length === 0 || keys.length > 1) {
-    console.log('No keys found for tracking ID:', trackingId)
     return null
   }
 
@@ -34,8 +31,6 @@ const getTrackingData = async (trackingId) => {
 }
 
 const addTrackingData = async (key, data) => {
-  console.log('Adding tracking data for key:', key)
-
   data.firstTime =
     typeof data.firstTime === 'object'
       ? data.firstTime.toISOString()
@@ -57,13 +52,6 @@ const initTrackingData = async (userId) => {
     date.getTime() + TRACKING_EXPIRATION_TIME * 1000
   ).toISOString()
 
-  console.log(
-    'Initializing tracking data for ID:',
-    trackingId,
-    'User ID:',
-    userId
-  )
-
   const redisKey = `${userId}__${trackingId}`
 
   await redis.hSet(redisKey, {
@@ -77,8 +65,6 @@ const initTrackingData = async (userId) => {
   })
 
   await redis.expire(redisKey, TRACKING_EXPIRATION_TIME)
-
-  return trackingId
 }
 
 module.exports = {

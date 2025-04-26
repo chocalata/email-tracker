@@ -12,6 +12,12 @@ module.exports = function routes() {
     const userId = req.signedCookies.userId
 
     userService.getUserTrackingData(userId).then((trackingData) => {
+      // Order by createdAt descending
+
+      trackingData = trackingData?.sort((a, b) => {
+        return new Date(b.data.createdAt) - new Date(a.data.createdAt)
+      })
+
       trackingData = trackingData?.map((entry) => {
         const data = entry.data
         return {

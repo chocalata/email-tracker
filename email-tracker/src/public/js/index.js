@@ -34,7 +34,9 @@ toggleTrackingBtns.forEach((btn) => {
         article.classList.toggle('tracker-status-on')
         article.classList.toggle('tracker-status-off')
       } else {
-        console.error('Failed to toggle tracking')
+        response.json().then((jsonResponse) => {
+          alert(jsonResponse.message)
+        })
       }
     })
   })
@@ -47,19 +49,20 @@ newTrackerBtn.addEventListener('click', async () => {
     headers: {
       'Content-Type': 'application/json'
     }
-  }).then((response) => {
+  }).then(async (response) => {
     //reload page on success
     if (response.ok) {
       window.location.reload()
     } else {
-      console.error('Failed to create new tracking')
+      response.json().then((jsonResponse) => {
+        alert(jsonResponse.message)
+      })
     }
   })
 })
 
 deleteTrackerBtns.forEach((btn) => {
   btn.addEventListener('click', async () => {
-    console.log('Delete button clicked')
     const trackingId = btn.getAttribute('data-id')
 
     fetch('/user-actions/tracker/delete', {
@@ -68,14 +71,16 @@ deleteTrackerBtns.forEach((btn) => {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({ trackingId })
-    }).then((response) => {
+    }).then(async (response) => {
       if (response.ok) {
         const article = document.querySelector(
           `article[data-id="${trackingId}"]`
         )
         article.remove()
       } else {
-        console.error('Failed to delete tracking')
+        response.json().then((jsonResponse) => {
+          alert(jsonResponse.message)
+        })
       }
     })
   })
@@ -102,7 +107,7 @@ copyBtns.forEach((btn) => {
         // Desktop devices can use ClipboardItem
         await navigator.clipboard.write([clipboardItem])
       }
-      console.log('Image HTML copied to clipboard!')
+      alert('Image HTML copied to clipboard!')
     } catch (error) {
       console.error('Failed to copy HTML:', error)
     }
