@@ -1,10 +1,10 @@
 const crypto = require('crypto')
 
+const redis = require('../repository/redis')
+
 const TRACKING_EXPIRATION_DAYS = process.env.TRACKING_EXPIRATION_DAYS || 3
 
 const TRACKING_EXPIRATION_TIME = 60 * 60 * 24 * TRACKING_EXPIRATION_DAYS
-
-const redis = require('../repository/redis')
 
 const TRACKING_STATUS = {
   ON: 'on',

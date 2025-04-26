@@ -8,10 +8,10 @@
 	>
 		<div class="tracker-info">
 			<p><strong>Tracker (<%= tracker.trackingId %>)</strong></p>
-			<p>
-				<b>Tracking period: </b> <%= tracker.data.createdAt %> -- <%=
-				tracker.data.expiresAt %>
-			</p>
+
+			<p><b>Created at: </b> <%= tracker.data.createdAt %></p>
+			<p><b>Expiration date: </b><%= tracker.data.expiresAt %></p>
+			<p><b>Times watched: </b> <%= tracker.data.count %></p>
 			<p><b>First opened:</b> <%= tracker.data.firstTime %></p>
 			<p><b>Last opened:</b> <%= tracker.data.lastTime %></p>
 			<p><b>Opened:</b> <%= tracker.data.count > 0 ? "YES" : "NO" %></p>

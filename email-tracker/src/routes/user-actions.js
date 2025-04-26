@@ -1,125 +1,71 @@
+const { checkTrackingLimit } = require('../middlewares/api')
 const userService = require('../service/user-service')
 const trackingService = require('../service/tracking-service')
-
-const ONE_YEAR = 365 * 24 * 60 * 60 * 1000
+const { USER_THEME } = require('../config/cookie')
 
 module.exports = function routes() {
   const router = require('express').Router()
 
-  const userIdentificationMiddleware = (req, res, next) => {
+  router.post('/tracker/create', checkTrackingLimit, async (req, res) => {
     const userId = req.signedCookies.userId
 
-    if (!userId) {
-      const newUserId = crypto.randomUUID()
-      res.cookie('userId', newUserId, { signed: true })
-    }
+    const trackingId = await trackingService.initTrackingData(userId)
 
-    next()
-  }
+    res.status(200).send({ trackingId: trackingId })
+  })
 
-  const checkTrackingLimit = async (req, res, next) => {
+  router.post('/tracker/start', async (req, res) => {
     const userId = req.signedCookies.userId
+    const trackingId = req.body.trackingId
 
-    if (!userId || userId === '') {
-      console.log('User ID is required')
-      return res.status(400).send('User ID is required')
+    if (!trackingId) {
+      return res.status(400).send('Tracking ID is required')
     }
 
-    const limitReached = await userService.checkUserTrackingLimit(userId)
+    const trackingData = await userService.startTracking(userId, trackingId)
 
-    if (!limitReached) {
-      console.log('User has reached the tracking limit')
-      return res.status(400).send('User has reached the tracking limit')
+    res.status(200).send(trackingData)
+  })
+
+  router.post('/tracker/stop', async (req, res) => {
+    const userId = req.signedCookies.userId
+    const trackingId = req.body.trackingId
+
+    if (!trackingId) {
+      return res.status(400).send('Tracking ID is required')
     }
 
-    next()
-  }
+    const trackingData = await userService.stopTracking(userId, trackingId)
 
-  router.post(
-    '/tracker/create',
-    userIdentificationMiddleware,
-    checkTrackingLimit,
-    async (req, res) => {
-      const userId = req.signedCookies.userId
+    res.status(200).send(trackingData)
+  })
 
-      const trackingId = await trackingService.initTrackingData(userId)
+  router.delete('/tracker/delete', async (req, res) => {
+    const userId = req.signedCookies.userId
+    const trackingId = req.body.trackingId
 
-      res.status(200).send({ trackingId: trackingId })
+    if (!trackingId) {
+      console.log('Tracking ID is required')
+      return res.status(400).send('Tracking ID is required')
     }
-  )
 
-  router.post(
-    '/tracker/start',
-    userIdentificationMiddleware,
-    async (req, res) => {
-      const userId = req.signedCookies.userId
-      const trackingId = req.body.trackingId
+    const trackingData = await userService.deleteTracking(userId, trackingId)
 
-      if (!trackingId) {
-        console.log('Tracking ID is required')
-        return res.status(400).send('Tracking ID is required')
-      }
+    res.status(200).send(trackingData)
+  })
 
-      const trackingData = await userService.startTracking(userId, trackingId)
+  router.patch('/change-theme', async (req, res) => {
+    const newTheme = req.body.theme
 
-      res.status(200).send(trackingData)
+    if (!newTheme) {
+      return res.status(400).send('New theme is required')
     }
-  )
 
-  router.post(
-    '/tracker/stop',
-    userIdentificationMiddleware,
-    async (req, res) => {
-      const userId = req.signedCookies.userId
-      const trackingId = req.body.trackingId
+    res.cookie(USER_THEME.name, newTheme, USER_THEME.options)
+    res.locals.userTheme = newTheme
 
-      if (!trackingId) {
-        console.log('Tracking ID is required')
-        return res.status(400).send('Tracking ID is required')
-      }
-
-      const trackingData = await userService.stopTracking(userId, trackingId)
-
-      res.status(200).send(trackingData)
-    }
-  )
-
-  router.delete(
-    '/tracker/delete',
-    userIdentificationMiddleware,
-    async (req, res) => {
-      const userId = req.signedCookies.userId
-      const trackingId = req.body.trackingId
-
-      if (!trackingId) {
-        console.log('Tracking ID is required')
-        return res.status(400).send('Tracking ID is required')
-      }
-
-      const trackingData = await userService.deleteTracking(userId, trackingId)
-
-      res.status(200).send(trackingData)
-    }
-  )
-
-  router.patch(
-    '/change-theme',
-    userIdentificationMiddleware,
-    async (req, res) => {
-      const userId = req.signedCookies.userId
-      const newTheme = req.body.theme
-
-      if (!newTheme) {
-        console.log('New theme is required')
-        return res.status(400).send('New theme is required')
-      }
-
-      res.cookie('userTheme', newTheme, { signed: false, maxAge: ONE_YEAR })
-      res.locals.userTheme = newTheme
-
-      res.status(200).send({ message: 'Theme changed successfully' })
-    }
-  )
+    res.status(200).send({ message: 'Theme changed successfully' })
+  })
 
   return router
 }

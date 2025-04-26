@@ -2,10 +2,11 @@ services:
   email-tracker.catalin-trandafir.com:
     build:
       context: "./email-tracker"
+      dockerfile: Dockerfile.local
     ports:
       - 3000:3000
     env_file:
-      - ./email-tracker/.env
+      - ./email-tracker/docker.env
       - ./email-tracker/secret.env
     networks:
       - email-tracker-network

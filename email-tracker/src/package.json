@@ -4,7 +4,8 @@
 	"main": "app.js",
 	"scripts": {
 		"start": "node app.js",
-		"dev": "nodemon --env-file=../.env --env-file=../secret.env --ignore ./node_modules/ --legacy-watch app.js -e ejs,css,js"
+		"dev": "nodemon --env-file=../dev.env --env-file=../secret.env --ignore ./node_modules/ --legacy-watch app.js -e ejs,css,js",
+		"dev-docker": "nodemon --ignore ./node_modules/ --legacy-watch app.js -e ejs,css,js"
 	},
 	"author": "Catalin Trandafir",
 	"license": "ISC",
