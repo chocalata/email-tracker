@@ -41,7 +41,7 @@ const addTrackingData = async (key, data) => {
   await redis.hSet(key, data)
 }
 
-const initTrackingData = async (userId) => {
+const initTrackingData = async (userId, trackerName) => {
   // generate an uuid4 trackingId
   const trackingId = crypto.randomUUID()
 
@@ -55,6 +55,7 @@ const initTrackingData = async (userId) => {
   const redisKey = `${userId}__${trackingId}`
 
   await redis.hSet(redisKey, {
+    name: trackerName,
     status: TRACKING_STATUS.OFF,
     count: 0,
     createdAt: createdAt,

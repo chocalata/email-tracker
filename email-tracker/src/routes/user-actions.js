@@ -13,8 +13,16 @@ module.exports = function routes() {
 
   router.post('/tracker/create', checkTrackingLimit, async (req, res) => {
     const userId = req.signedCookies.userId
+    const trackerName = req.body.trackerName
 
-    await trackingService.initTrackingData(userId)
+    // Check if has 100 characters. if has more, return error.
+    if (trackerName && trackerName.length > 100) {
+      return res
+        .status(400)
+        .json(getErrorMessage('Tracker name is too long (100 characters max)'))
+    }
+
+    await trackingService.initTrackingData(userId, trackerName)
 
     res.status(200).json(getSuccessData('Tracking ID created successfully'))
   })

@@ -7,7 +7,9 @@
 		data-id="<%= tracker.trackingId %>"
 	>
 		<div class="tracker-info">
-			<p><strong>Tracker (<%= tracker.trackingId %>)</strong></p>
+			<p>
+				<strong><%= tracker.data.name %> (<%= tracker.trackingId %>)</strong>
+			</p>
 
 			<p><b>Created at: </b> <%= tracker.data.createdAt %></p>
 			<p><b>Expiration date: </b><%= tracker.data.expiresAt %></p>

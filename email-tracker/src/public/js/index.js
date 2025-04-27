@@ -1,3 +1,5 @@
+const newTrackerForm = document.getElementById('new-tracker')
+
 const newTrackerBtn = document.getElementById('new-tracker-btn')
 
 const toggleTrackingBtns = document.querySelectorAll('.toggle-tracking')
@@ -42,6 +44,7 @@ toggleTrackingBtns.forEach((btn) => {
   })
 })
 
+/* //Change this to using a form
 newTrackerBtn.addEventListener('click', async () => {
   // post fetch to /user-actions/tracker/create
   fetch('/user-actions/tracker/create', {
@@ -49,6 +52,31 @@ newTrackerBtn.addEventListener('click', async () => {
     headers: {
       'Content-Type': 'application/json'
     }
+  }).then(async (response) => {
+    //reload page on success
+    if (response.ok) {
+      window.location.reload()
+    } else {
+      response.json().then((jsonResponse) => {
+        alert(jsonResponse.message)
+      })
+    }
+  })
+})
+*/
+
+newTrackerForm.addEventListener('submit', async (event) => {
+  event.preventDefault()
+
+  const formData = new FormData(newTrackerForm)
+  const trackerName = formData.get('tracker-name')
+
+  fetch('/user-actions/tracker/create', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ trackerName })
   }).then(async (response) => {
     //reload page on success
     if (response.ok) {

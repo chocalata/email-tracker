@@ -24,7 +24,19 @@
 
 				<button id="new-tracker-btn" type="submit">Create</button>
 			</form-->
-			<button id="new-tracker-btn">Create new tracker</button>
+			<form id="new-tracker" action="/tracker/create" method="POST">
+				<input
+					type="text"
+					name="tracker-name"
+					id="tracker-name"
+					placeholder="Name of the tracker"
+					maxlength="100"
+					required
+				/>
+
+				<button type="submit" id="new-tracker-btn">Create new tracker</button>
+			</form>
+
 			<%- include('modals/tracker-transfer') %>
 		</header>
 

@@ -8,6 +8,20 @@ header h1 {
 	margin-bottom: 10px;
 }
 
+#new-tracker {
+	margin-bottom: 10px;
+}
+
+#tracker-name {
+	padding: 6px 12px;
+	font-size: 16px;
+	line-height: 1.5;
+	color: var(--secondary-color);
+	background-color: #fff;
+	border: 1px solid #ced4da;
+	border-radius: 4px;
+}
+
 /* Button styling */
 #new-tracker-btn {
 	background-color: var(--primary-color);
