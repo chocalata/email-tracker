@@ -10,8 +10,8 @@ services:
       - ./email-tracker/secret.env
     networks:
       - email-tracker-network
-    volumes:
-      - ./email-tracker/src:/usr/src/app
+  #    volumes:
+  #      - ./email-tracker/src:/usr/src/app
 
   email-tracker-redis:
     build:

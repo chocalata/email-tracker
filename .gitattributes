@@ -1,1 +1,2 @@
 build.sh eol=lf
+node-canvas-dependencies.txt eol=lf
