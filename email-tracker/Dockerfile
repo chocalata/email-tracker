@@ -12,6 +12,7 @@ RUN until xargs -a /node-canvas-dependencies.txt apt-get install -y; do \
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 COPY src/ /usr/src/app/
+
 RUN npm install --omit=dev
 EXPOSE 3000
 CMD [ "npm", "run", "start"]

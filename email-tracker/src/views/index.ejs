@@ -7,23 +7,56 @@
 		<link rel="stylesheet" href="/css/fonts.css" />
 		<link rel="stylesheet" href="/css/base.css" />
 		<link rel="stylesheet" href="/css/index.css" />
+		<link rel="icon" type="image/png" href="/img/favicon.png" />
+		<meta
+			name="description"
+			content="Email Tracker is a simple tool to monitor email opens and engagement."
+		/>
+		<meta
+			name="keywords"
+			content="email tracker, email analytics, open tracking, email monitoring, engagement tracking"
+		/>
+		<meta name="author" content="Catalin Trandafir" />
+
+		<meta
+			property="og:url"
+			content="https://email-tracker.catalin-trandafir.com"
+		/>
+		<meta property="og:type" content="website" />
+		<meta property="og:title" content="Email Tracker" />
+		<meta
+			property="og:description"
+			content="Track when and how often your emails are opened."
+		/>
+		<meta
+			property="og:image"
+			content="https://email-tracker.catalin-trandafir.com/img/email-tracker.png"
+		/>
+
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta
+			property="twitter:domain"
+			content="email-tracker.catalin-trandafir.com"
+		/>
+		<meta
+			property="twitter:url"
+			content="https://email-tracker.catalin-trandafir.com"
+		/>
+		<meta name="twitter:title" content="Email Tracker" />
+		<meta
+			name="twitter:description"
+			content="Track when and how often your emails are opened."
+		/>
+		<meta
+			name="twitter:image"
+			content="https://email-tracker.catalin-trandafir.com/img/email-tracker.png"
+		/>
 	</head>
 	<body>
 		<header>
 			<h1>Email Tracker</h1>
 			<%- include('sections/theme-toggle') %>
 
-			<!--form id="new-tracker" action="/trackers" method="POST">
-				<input
-					type="text"
-					name="tracker-name"
-					id="tracker-name"
-					placeholder="Name of the tracker"
-					required
-				/>
-
-				<button id="new-tracker-btn" type="submit">Create</button>
-			</form-->
 			<form id="new-tracker" action="/tracker/create" method="POST">
 				<input
 					type="text"
