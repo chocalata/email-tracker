@@ -41,6 +41,5 @@ With this project you can:
 ## Useful links
 
 - Live app: [email-tracker.catalin-trandafir.com](https://email-tracker.catalin-trandafir.com/)  
-- Author: [Catalin Trandafir](https://github.com/chocalata)  
 
 ---
