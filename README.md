@@ -37,9 +37,3 @@ With this project you can:
 - Repository config files like `.gitignore` and `.gitattributes`.  
 
 ---
-
-## Useful links
-
-- Live app: [email-tracker.catalin-trandafir.com](https://email-tracker.catalin-trandafir.com/)  
-
----
