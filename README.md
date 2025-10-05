@@ -32,8 +32,8 @@ With this project you can:
 
 - **`email-tracker/`** → Main backend code (Node.js with Express).  
 - **`redis/`** → Database setup for storing tracker data.  
-- **`docker-compose.yml`** → Spins up the backend and Redis with Docker.  
-- **`build.sh`** → Script to build and run the project.  
+- **`docker-compose.yml`** → Spins up the app and Redis with Docker.  
+- **`build.sh`** → Script to build the project.
 - Repository config files like `.gitignore` and `.gitattributes`.  
 
 ---
