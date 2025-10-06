@@ -23,6 +23,10 @@ app.use('/css', express.static(__dirname + '/public/css'))
 
 //JS paths
 app.use('/js', express.static(__dirname + '/public/js'))
+app.use(
+  '/js/driver-js',
+  express.static(__dirname + '/node_modules/driver.js/dist/')
+)
 
 //IMG paths
 app.use('/img', express.static(__dirname + '/public/img'))
@@ -30,7 +34,7 @@ app.use('/img', express.static(__dirname + '/public/img'))
 //FONTS paths
 app.use('/fonts', express.static(__dirname + '/public/fonts'))
 
-app.set('views', path.join(__dirname, 'views'))
+app.set('views', path.join(__dirname, 'public/views'))
 app.set('view engine', 'ejs')
 
 const root_routes = require('./routes/router')()

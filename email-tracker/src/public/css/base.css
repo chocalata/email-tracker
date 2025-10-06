@@ -62,7 +62,7 @@ body {
 	box-sizing: border-box;
 }
 
-button:not(.not-base-style) {
+button:not(.not-base-style):not([class*="driver-popover"]) {
 	flex: 1;
 	min-width: 100px;
 	padding: 8px;
@@ -75,6 +75,6 @@ button:not(.not-base-style) {
 	background-color: var(--secondary-color);
 }
 
-button:not(.not-base-style):hover {
+button:not(.not-base-style):not([class*="driver-popover"]):hover {
 	background-color: var(--secondary-hover);
 }
